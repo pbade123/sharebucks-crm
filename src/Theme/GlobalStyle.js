@@ -7,13 +7,12 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     background: ${(props) => props.theme.ghostWhite};
     font-family: 'Lato', sans-serif;
-    box-sizing: border-box;
+    letter-spacing: 0px;
   }
 
   h1{
     font-size:3em;
-    line-height:1.2;
-    margin-bottom:0.5em;
+    line-height:1.2; 
   }
 
   h2{
@@ -31,18 +30,15 @@ const GlobalStyle = createGlobalStyle`
     font-size:1.2em;
     line-height:1.2;
     margin-bottom:1.25em;
-    font-weight:bold;
   }
 
   h5{
     font-size:1em;
     margin-bottom:1.5em;
-    font-weight:bold;
   }
 
   h6{
     font-size:1em;
-    font-weight:bold;
   }
   
   p{

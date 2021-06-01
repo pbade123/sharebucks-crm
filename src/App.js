@@ -3,18 +3,17 @@ import { ThemeProvider } from 'styled-components';
 import './App.css';
 import Theme from './Theme/Theme';
 import GlobalStyle from './Theme/GlobalStyle';
-import Card from './components/common/Card';
-import Loading from './components/common/Loading';
+import SignIn from './components/pages/SignIn';
 
 function App() {
   return (
-    <ThemeProvider theme={Theme}>
-      <GlobalStyle />
-      <div style={{ padding: '2rem' }}>
-        <Card />
-        <Loading />
-      </div>
-    </ThemeProvider>
+    <div className="app">
+      <ThemeProvider theme={Theme}>
+        <GlobalStyle />
+
+        <SignIn />
+      </ThemeProvider>
+    </div>
   );
 }
 
