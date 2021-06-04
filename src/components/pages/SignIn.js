@@ -1,30 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
 import Input from '../common/Input';
 import logoName from '../../assets/images/login-logo.png';
 import Button from '../common/Button';
+import { signIn } from '../../store/actions/userState';
+
 // import Input from '../common/Input';
 
-const SignIn = () => (
-  <Wrapper>
-    <Container fluid>
-      <Row>
-        <Col xl={7} className="pl-0 pr-0">
-          <Banner alt="Sharebucks SignIn" />
-        </Col>
-        <Col className=" login-form d-flex flex-column justify-content-center ">
-          <img className="logo-name" src={logoName} alt="company logo" />
-          <h1 className="heading">Welcome Back</h1>
-          <p>Please sign into your account</p>
-          <Input />
-          <Button className="signIn-btn" title="Sign In" />
-        </Col>
-      </Row>
-    </Container>
-  </Wrapper>
-);
+const SignIn = () => {
+  const [form, setForm] = useState({});
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log('form object', form);
+    dispatch(signIn(form));
+  };
+
+  const setField = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value,
+    });
+  };
+
+  return (
+    <Wrapper>
+      <Container fluid>
+        <Row>
+          <Col xl={7} className="pl-0 pr-0">
+            <Banner alt="Sharebucks SignIn" />
+          </Col>
+          <Col className=" login-form d-flex flex-column justify-content-center ">
+            <img className="logo-name" src={logoName} alt="company logo" />
+            <h1 className="heading">Welcome Back</h1>
+            <p>Please sign into your account</p>
+            <Form onSubmit={handleSubmit}>
+              <Input
+                type="email"
+                label="Enter email"
+                id="formBasicEmail"
+                onChange={(e) => setField('email', e.target.value)}
+              />
+              <Input
+                type="password"
+                label="Enter password"
+                id="formBasicPassword"
+                onChange={(e) => setField('password', e.target.value)}
+              />
+              <Button className="signIn-btn" title="Sign In" />
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </Wrapper>
+  );
+};
 
 export default SignIn;
 

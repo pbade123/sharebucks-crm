@@ -11,4 +11,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
   },
+  globals: {
+    localStorage: true,
+    fetch: true,
+    window: true,
+  },
 };

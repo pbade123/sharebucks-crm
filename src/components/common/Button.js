@@ -27,6 +27,10 @@ const ButtonWrapper = styled.div`
       background-color: ${(props) => props.theme.primaryHover};
     }
   }
+  .btn-primary:not(:disabled):not(.disabled):active {
+    background-color: ${(props) => props.theme.primaryHover};
+    box-shadow: 0px 3px 6px #00000029;
+  }
 `;
 
 Button.defaultProps = {
