@@ -1,16 +1,12 @@
+import { func, string } from 'prop-types';
 import { Form } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Input = () => (
+const Input = ({ type, placeholder, label, id, onChange }) => (
   <Wrapper>
-    <Form.Group className="mb-3" controlId="formBasicEmail">
-      <Form.Label>Email address</Form.Label>
-      <Form.Control type="email" placeholder="Enter email" />
-    </Form.Group>
-
-    <Form.Group className="mb-3" controlId="formBasicPassword">
-      <Form.Label>Password</Form.Label>
-      <Form.Control type="password" placeholder="Password" />
+    <Form.Group className="mb-3" controlId={id}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control type={type} placeholder={placeholder} onChange={onChange} />
     </Form.Group>
   </Wrapper>
 );
@@ -63,3 +59,16 @@ const Wrapper = styled.div`
     color: ${(props) => props.theme.primary};
   }
 `;
+
+Input.defaultProps = {
+  placeholder: '',
+  onChange: () => {},
+};
+
+Input.propTypes = {
+  type: string.isRequired,
+  placeholder: string,
+  label: string.isRequired,
+  id: string.isRequired,
+  onChange: func,
+};
