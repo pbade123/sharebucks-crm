@@ -11,7 +11,7 @@ export const userRequestFail = (error) => ({
   error,
 });
 
-export const signIn = (formData) => {
+export const signIn = (formData, history) => {
   const accessData = {
     client_id: CLIENT_ID,
     client_secret: CLIENT_SECRET,
@@ -33,6 +33,7 @@ export const signIn = (formData) => {
         });
         localStorage.setItem('token', response.data.access_info.access_token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        history.push('/dashboard');
       })
       .catch((error) => {
         console.log('errr', error);
