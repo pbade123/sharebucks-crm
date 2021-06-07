@@ -3,22 +3,24 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
-import Input from '../common/Input';
-import logoName from '../../assets/images/login-logo.png';
-import Button from '../common/Button';
-import { signIn } from '../../store/actions/userState';
+import Input from '../../common/Input';
+import logoName from '../../../assets/images/login-logo.png';
+import Button from '../../common/Button';
+import { signIn } from '../../../store/actions/userState';
 
 // import Input from '../common/Input';
 
 const SignIn = () => {
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log('form object', form);
-    dispatch(signIn(form));
+    dispatch(signIn(form, history));
   };
 
   const setField = (field, value) => {
@@ -52,6 +54,10 @@ const SignIn = () => {
                 id="formBasicPassword"
                 onChange={(e) => setField('password', e.target.value)}
               />
+              <Link to="/forgot-password" className="forgotLink">
+                Forgot Password?
+              </Link>
+
               <Button className="signIn-btn" title="Sign In" />
             </Form>
           </Col>
@@ -84,6 +90,10 @@ const Wrapper = styled.div`
   }
   .signIn-btn {
     margin: 4rem 0;
+  }
+  .forgotLink {
+    float: right;
+    color: ${(props) => props.theme.primary};
   }
 `;
 

@@ -1,12 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { func, string } from 'prop-types';
-import { Form } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Input = ({ type, placeholder, label, id, onChange }) => (
   <Wrapper>
     <Form.Group className="mb-3" controlId={id}>
       <Form.Label>{label}</Form.Label>
-      <Form.Control type={type} placeholder={placeholder} onChange={onChange} />
+      <FormControl type={type} placeholder={placeholder} onChange={onChange} />
     </Form.Group>
   </Wrapper>
 );
@@ -48,20 +49,19 @@ const Wrapper = styled.div`
     border-color: ${(props) => props.theme.primary};
     border-width: 2px;
   }
-
-  /* .form-control:not(:placeholder-shown) + .form-control {
-    border-color: ${(props) => props.theme.primary};
-    border-width: 2px;
-  } */
-
   .form-group:focus-within > .form-label {
+    transform: translateY(1.2em) scale(0.8);
+    color: ${(props) => props.theme.primary};
+  }
+
+  .form-control:not(:placeholder-shown) > .form-label {
     transform: translateY(1.2em) scale(0.8);
     color: ${(props) => props.theme.primary};
   }
 `;
 
 Input.defaultProps = {
-  placeholder: '',
+  placeholder: 'Enter',
   onChange: () => {},
 };
 
