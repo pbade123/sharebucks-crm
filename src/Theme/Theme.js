@@ -8,7 +8,7 @@ const Theme = {
   ghostWhite: '#F5F5F8',
   black: '#000000',
   swampBlack: '#001D1B',
-  rustRed: '#D64242',
+  rustRed: '#8E4E4E',
 };
 
 export default Theme;
