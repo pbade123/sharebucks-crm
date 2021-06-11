@@ -8,7 +8,7 @@ import Backdrop from '../../common/Backdrop';
 import Button from '../../common/Button';
 import Input from '../../common/Input';
 
-const ForgotPassword = () => {
+const ResestPassword = () => {
   const [form, setForm] = useState({});
   const history = useHistory();
 
@@ -31,13 +31,19 @@ const ForgotPassword = () => {
           show
           body={
             <div className="form-inner">
-              <h4>Forgot Password?</h4>
-              <p>We’ll send you an email with a link to reset your password.</p>
+              <h4>Reset Password</h4>
+              <p>Please enter a new password below</p>
               <Input
-                type="email"
-                label="Email Address"
-                onChange={(e) => setField('email', e.target.value)}
-                id="formBasicEmail"
+                type="password"
+                label="Password"
+                id="formBasicPassword"
+                onChange={(e) => setField('password', e.target.value)}
+              />
+              <Input
+                type="password"
+                label="Confirm password"
+                id="formBasicConfirmPassword"
+                onChange={(e) => setField('confirm_password', e.target.value)}
               />
               <div
                 style={{ marginTop: '5rem ' }}
@@ -54,9 +60,19 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResestPassword;
 
 const Wrapper = styled.div`
+  .form-outer {
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 8rem;
+  }
   .form-inner {
     margin-top: 4rem;
   }

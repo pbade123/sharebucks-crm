@@ -7,6 +7,7 @@ const Theme = {
   whiteSmoke: '#F8F8F8',
   ghostWhite: '#F5F5F8',
   black: '#000000',
+  emperor: '#535353',
   swampBlack: '#001D1B',
   rustRed: '#8E4E4E',
 };
