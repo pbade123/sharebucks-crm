@@ -20,6 +20,16 @@ const Backdrop = ({ body }) => (
 export default Backdrop;
 
 const BackDropWrapper = styled.div`
+  .form-outer {
+    background-color: white;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 8rem;
+  }
   img.logo-name {
     width: 150px !important;
     height: 22px !important;
