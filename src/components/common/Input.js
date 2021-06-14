@@ -3,11 +3,11 @@ import { func, string } from 'prop-types';
 import { Form, FormControl } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Input = ({ type, placeholder, label, id, onChange }) => (
+const Input = ({ type, placeholder, label, id, onChange, ...props }) => (
   <Wrapper>
     <Form.Group className="mb-3" controlId={id}>
       <Form.Label>{label}</Form.Label>
-      <FormControl type={type} placeholder={placeholder} onChange={onChange} />
+      <FormControl type={type} placeholder={label} onChange={onChange} {...props} />
     </Form.Group>
   </Wrapper>
 );
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
 
   .form-label {
     font-size: 1em;
-    color: #aaaaaa;
+    color: transparent;
     display: block;
     opacity: 1;
     transform: translateY(2.8em);
@@ -40,7 +40,7 @@ const Wrapper = styled.div`
     padding: 5px;
   }
   .form-control::placeholder {
-    color: transparent;
+    color: #aaaaaa;
   }
 
   .form-control:focus {
@@ -49,8 +49,8 @@ const Wrapper = styled.div`
     border-color: ${(props) => props.theme.primary};
     border-width: 2px;
   }
-  .form-group:focus-within > .form-label {
-    transform: translateY(1.2em) scale(0.8);
+  .form-group:focus-within > .form-control::placeholder {
+    /* transform: translateY(1.2em) scale(0.8); */
     color: ${(props) => props.theme.primary};
   }
 

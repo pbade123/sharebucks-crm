@@ -43,12 +43,14 @@ const SignIn = () => {
             <p>Please sign into your account</p>
             <Form onSubmit={handleSubmit}>
               <Input
+                required
                 type="email"
                 label="Enter email"
                 id="formBasicEmail"
                 onChange={(e) => setField('email', e.target.value)}
               />
               <Input
+                required
                 type="password"
                 label="Enter password"
                 id="formBasicPassword"
