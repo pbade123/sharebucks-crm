@@ -9,7 +9,7 @@ const Theme = {
   black: '#000000',
   emperor: '#535353',
   swampBlack: '#001D1B',
-  rustRed: '#8E4E4E',
+  rustRed: 'rgb(191, 22, 80)',
 };
 
 export default Theme;
