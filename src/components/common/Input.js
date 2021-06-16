@@ -1,13 +1,19 @@
-/* eslint-disable no-unused-vars */
-import { func, string } from 'prop-types';
+import { func, objectOf, string } from 'prop-types';
 import { Form, FormControl } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Input = ({ type, placeholder, label, id, onChange }) => (
+const Input = ({ type, placeholder, label, id, onChange, error, ...props }) => (
   <Wrapper>
     <Form.Group className="mb-3" controlId={id}>
       <Form.Label>{label}</Form.Label>
-      <FormControl type={type} placeholder={placeholder} onChange={onChange} />
+      <FormControl
+        isInvalid={error && error?.message}
+        type={type}
+        placeholder={label}
+        onChange={onChange}
+        {...props}
+      />
+      <Form.Control.Feedback type="invalid">{error?.message}</Form.Control.Feedback>
     </Form.Group>
   </Wrapper>
 );
@@ -21,12 +27,23 @@ const Wrapper = styled.div`
 
   .form-label {
     font-size: 1em;
-    color: #aaaaaa;
+    color: transparent;
     display: block;
     opacity: 1;
     transform: translateY(2.8em);
     transform-origin: 0 0;
     transition: all 0.3s;
+  }
+  .form-control.is-invalid,
+  .was-validated .form-control:invalid {
+    border-color: ${(props) => props.theme.rustRed} !important;
+  }
+
+  .form-control:invalid:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: ${(props) => props.theme.rustRed} !important;
+    border-width: 2px;
   }
 
   .form-control {
@@ -39,8 +56,9 @@ const Wrapper = styled.div`
     transform: all 0.5s;
     padding: 5px;
   }
+
   .form-control::placeholder {
-    color: transparent;
+    color: #aaaaaa;
   }
 
   .form-control:focus {
@@ -49,8 +67,8 @@ const Wrapper = styled.div`
     border-color: ${(props) => props.theme.primary};
     border-width: 2px;
   }
-  .form-group:focus-within > .form-label {
-    transform: translateY(1.2em) scale(0.8);
+  .form-group:focus-within > .form-control::placeholder {
+    /* transform: translateY(1.2em) scale(0.8); */
     color: ${(props) => props.theme.primary};
   }
 
@@ -63,6 +81,7 @@ const Wrapper = styled.div`
 Input.defaultProps = {
   placeholder: 'Enter',
   onChange: () => {},
+  error: null,
 };
 
 Input.propTypes = {
@@ -71,4 +90,5 @@ Input.propTypes = {
   label: string.isRequired,
   id: string.isRequired,
   onChange: func,
+  error: objectOf(Object),
 };

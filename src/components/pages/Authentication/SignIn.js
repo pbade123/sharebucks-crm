@@ -1,26 +1,56 @@
-import React, { useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { Container, Row, Col, Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import Input from '../../common/Input';
 import logoName from '../../../assets/images/login-logo.png';
 import Button from '../../common/Button';
 import { signIn } from '../../../store/actions/userState';
 
-// import Input from '../common/Input';
+const SigninSchema = yup.object().shape({
+  email: yup.string().required('Email is required').email('Email is invalid'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+});
 
 const SignIn = () => {
+  const error = useSelector((state) => state.user.userError);
+  const isLoading = useSelector((state) => state.user.isLoading);
   const [form, setForm] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log('form object', form);
-    dispatch(signIn(form, history));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(SigninSchema),
+  });
+
+  useEffect(() => {
+    if (error !== null) {
+      setError('password', {
+        type: 'manual',
+        message: error.error_description,
+      });
+    }
+  }, [error, setError]);
+
+  const onSubmit = (data) => {
+    dispatch(signIn(data, history));
   };
 
   const setField = (field, value) => {
@@ -41,14 +71,18 @@ const SignIn = () => {
             <img className="logo-name" src={logoName} alt="company logo" />
             <h1 className="heading">Welcome Back</h1>
             <p>Please sign into your account</p>
-            <Form onSubmit={handleSubmit}>
+            <Form noValidate validated={false} onSubmit={handleSubmit(onSubmit)}>
               <Input
+                {...register('email')}
+                error={errors.email}
                 type="email"
                 label="Enter email"
                 id="formBasicEmail"
                 onChange={(e) => setField('email', e.target.value)}
               />
               <Input
+                {...register('password')}
+                error={errors.password}
                 type="password"
                 label="Enter password"
                 id="formBasicPassword"
@@ -58,7 +92,7 @@ const SignIn = () => {
                 Forgot Password?
               </Link>
 
-              <Button className="signIn-btn" title="Sign In" />
+              <Button loading={isLoading} className="signIn-btn" title="Sign In" />
             </Form>
           </Col>
         </Row>
