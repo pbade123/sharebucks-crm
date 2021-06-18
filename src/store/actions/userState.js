@@ -11,6 +11,25 @@ export const userRequestFail = (error) => ({
   error,
 });
 
+export const checkAuthentication = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
+
+  return (dispatch) => {
+    if (token) {
+      dispatch({
+        type: actionTypes.AUTHENTICATION_SUCCESS,
+        userInfo: user,
+        token,
+      });
+    } else {
+      dispatch({
+        type: actionTypes.AUTHENTICATION_FAIL,
+      });
+    }
+  };
+};
+
 export const signIn = (formData, history) => {
   const accessData = {
     client_id: CLIENT_ID,
@@ -25,7 +44,6 @@ export const signIn = (formData, history) => {
     axiosInstance
       .post(AUTH_TOKEN_API, accessData)
       .then((response) => {
-        console.log('suceess', response.data);
         dispatch({
           type: actionTypes.USER_REQUEST_SUCCESS,
           userInfo: response.data.user,
