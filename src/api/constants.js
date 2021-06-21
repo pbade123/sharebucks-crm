@@ -8,5 +8,6 @@ export const API_VERSION = '1.0.0';
 export const USER_API = `${API_VERSION}/user/`;
 export const AUTH_TOKEN_API = '/auth/token/';
 export const USER_ME = `${USER_API}me/`;
+export const LOGOUT = '/auth/revoke-token/';
 
-export const NON_AUTHORIZATION_APIS = [USER_API, AUTH_TOKEN_API];
+export const NON_AUTHORIZATION_APIS = [USER_API, AUTH_TOKEN_API, LOGOUT];
