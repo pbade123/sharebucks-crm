@@ -6,7 +6,7 @@ const initialState = {
   userError: null,
   isAuthenticated: false,
   userInfo: {},
-  accessInfo: {},
+  token: '',
 };
 
 const userStateReducer = (state = initialState, action) => {
@@ -23,13 +23,37 @@ const userStateReducer = (state = initialState, action) => {
         isLoading: false,
         userError: null,
         userInfo: action.userInfo,
-        accessInfo: action.accessInfo,
+        token: action.token,
+        isAuthenticated: true,
       };
     case actionTypes.USER_REQUEST_FAIL:
       return {
         ...state,
         isLoading: false,
         userError: action.error,
+      };
+
+    case actionTypes.AUTHENTICATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        userInfo: action.userInfo,
+        token: action.token,
+        isAuthenticated: true,
+      };
+
+    case actionTypes.AUTHENTICATION_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false,
+      };
+
+    case actionTypes.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false,
       };
 
     default:
